@@ -1,5 +1,5 @@
 const CACHE_NAME =
-  "dream-music-v1";
+  "dream-music-v2";
 
 const FILES = [
 
