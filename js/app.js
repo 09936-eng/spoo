@@ -18,7 +18,7 @@ const music = [
     color1: "#f7b733",
     color2: "#fc4a1a",
     duration: 180,
-    audio: "music/song.mp3"
+    audio: "song.mp3"
   },
 
   {
