@@ -10,10 +10,10 @@ const music = [
 
   {
     id: 1,
-    title: "Morning Light",
-    artist: "Dream Studio",
+    title: "สิทธิ์ของเธอ",
+    artist: "อัสนี & วสันต์",
     type: "เพลง",
-    emoji: "☀️",
+    emoji: "⭐",
     color1: "#f7b733",
     color2: "#fc4a1a",
     duration: 180
