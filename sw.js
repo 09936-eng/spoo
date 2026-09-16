@@ -11,7 +11,7 @@ const FILES = [
 
   "./js/app.js",
 
-  "./manifest.json"
+  "song.mp3"
 
 ];
 
