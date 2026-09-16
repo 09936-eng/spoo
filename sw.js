@@ -3,15 +3,12 @@ const CACHE_NAME =
 
 const FILES = [
 
-  "./",
-
+"./",
   "./index.html",
-
   "./css/style.css",
-
   "./js/app.js",
-
-  "song.mp3"
+  "./manifest.json",
+  "./song.mp3"
 
 ];
 
