@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="theme-color" content="#121212">
+  <meta name="description" content="Dream Music - เว็บแอปเพลงและพอดแคสต์">
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="css/style.css">
+
+  <title>Dream Music</title>
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+
+    <button class="menu-btn" id="menuBtn">☰</button>
+
+    <div class="logo">
+      <span>♪</span>
+      <b>Dream Music</b>
+    </div>
+
+    <div class="top-actions">
+      <button id="installBtn" class="install-btn" hidden>
+        ติดตั้งแอป
+      </button>
+
+      <button id="themeBtn" class="icon-btn">
+        ☾
+      </button>
+    </div>
+
+  </header>
+
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+
+    <nav>
+
+      <button class="nav active" data-page="home">
+        🏠 หน้าหลัก
+      </button>
+
+      <button class="nav" data-page="search">
+        🔎 ค้นหา
+      </button>
+
+      <button class="nav" data-page="library">
+        📚 คลังของฉัน
+      </button>
+
+    </nav>
+
+
+    <div class="playlist">
+
+      <p>เพลย์ลิสต์ของฉัน</p>
+
+      <button>♡ เพลงที่ชอบ</button>
+      <button>📚 อ่านหนังสือ</button>
+      <button>☁ Chill Time</button>
+
+    </div>
+
+
+    <div class="project-info">
+
+      <b>Dream Music</b>
+
+      <small>
+        Web Application Project
+      </small>
+
+      <small>
+        HTML + CSS + JavaScript + PWA
+      </small>
+
+    </div>
+
+  </aside>
+
+
+  <!-- MAIN -->
+  <main class="content">
+
+
+    <!-- HOME -->
+    <section class="page active" id="home">
+
+      <div class="hero">
+
+        <div class="hero-text">
+
+          <small>DREAM MUSIC</small>
+
+          <h1>
+            เพลงและพอดแคสต์<br>
+            <span>ในแบบของคุณ</span>
+          </h1>
+
+          <p>
+            ค้นหาเพลง ฟังเพลงโปรด
+            และสร้างคลังเพลงของคุณเอง
+          </p>
+
+          <button class="primary" data-page="search">
+            เริ่มฟังเลย ▶
+          </button>
+
+        </div>
+
+        <div class="hero-icon">
+          ♪
+        </div>
+
+      </div>
+
+
+      <!-- CONTINUE -->
+      <section class="section">
+
+        <div class="section-title">
+          <h2>ฟังต่อ</h2>
+        </div>
+
+        <div
+          class="music-grid"
+          id="continueGrid">
+        </div>
+
+      </section>
+
+
+      <!-- RECOMMEND -->
+      <section class="section">
+
+        <div class="section-title">
+          <h2>เพลงแนะนำ</h2>
+        </div>
+
+        <div
+          class="music-grid"
+          id="recommendGrid">
+        </div>
+
+      </section>
+
+
+      <!-- PODCAST -->
+      <section class="section">
+
+        <div class="section-title">
+          <h2>พอดแคสต์น่าสนใจ</h2>
+        </div>
+
+        <div
+          class="podcast-grid"
+          id="podcastGrid">
+        </div>
+
+      </section>
+
+    </section>
+
+
+
+    <!-- SEARCH -->
+    <section class="page" id="search">
+
+      <div class="page-heading">
+
+        <small>DISCOVER</small>
+
+        <h1>ค้นหา</h1>
+
+      </div>
+
+
+      <div class="search-box">
+
+        🔎
+
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="ค้นหาเพลง ศิลปิน หรือพอดแคสต์..."
+        >
+
+      </div>
+
+
+      <div class="chips">
+
+        <button
+          class="chip active"
+          data-filter="all">
+          ทั้งหมด
+        </button>
+
+        <button
+          class="chip"
+          data-filter="เพลง">
+          เพลง
+        </button>
+
+        <button
+          class="chip"
+          data-filter="พอดแคสต์">
+          พอดแคสต์
+        </button>
+
+      </div>
+
+
+      <div class="section">
+
+        <div
+          class="music-grid"
+          id="searchResults">
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- LIBRARY -->
+    <section class="page" id="library">
+
+      <div class="page-heading">
+
+        <small>YOUR LIBRARY</small>
+
+        <h1>คลังของฉัน</h1>
+
+      </div>
+
+
+      <div class="tabs">
+
+        <button
+          class="tab active"
+          data-library="favorites">
+          ❤️ เพลงที่ชอบ
+        </button>
+
+        <button
+          class="tab"
+          data-library="all">
+          🎵 เพลงทั้งหมด
+        </button>
+
+      </div>
+
+
+      <div
+        class="library-list"
+        id="libraryList">
+      </div>
+
+    </section>
+
+  </main>
+
+
+
+  <!-- MUSIC PLAYER -->
+  <footer class="player">
+
+    <div class="now-playing">
+
+      <div
+        class="mini-cover"
+        id="playerCover">
+        ♪
+      </div>
+
+      <div class="now-info">
+
+        <b id="playerTitle">
+          ยังไม่ได้เลือกเพลง
+        </b>
+
+        <span id="playerArtist">
+          เลือกเพลงเพื่อเริ่มฟัง
+        </span>
+
+      </div>
+
+      <button
+        id="likeBtn"
+        class="like-btn">
+        ♡
+      </button>
+
+    </div>
+
+
+    <div class="controls">
+
+      <div class="control-buttons">
+
+        <button id="prevBtn">
+          ⏮
+        </button>
+
+        <button
+          id="playBtn"
+          class="play">
+          ▶
+        </button>
+
+        <button id="nextBtn">
+          ⏭
+        </button>
+
+      </div>
+
+
+      <div class="progress">
+
+        <span id="currentTime">
+          0:00
+        </span>
+
+        <input
+          id="progress"
+          type="range"
+          min="0"
+          max="100"
+          value="0"
+        >
+
+        <span id="duration">
+          0:00
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <div class="volume">
+
+      🔊
+
+      <input
+        id="volume"
+        type="range"
+        min="0"
+        max="100"
+        value="75"
+      >
+
+    </div>
+
+  </footer>
+
+
+  <div
+    id="toast"
+    class="toast">
+  </div>
+
+</div>
+
+
+<script src="js/app.js"></script>
+
+</body>
+</html>
