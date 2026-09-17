@@ -1,58 +1,55 @@
-/* MUSIC DATA */
 const music = [
+
   {
     id: 1,
-    title: "สิทธิ์ของเธอ",
-    artist: "อัสนี & วสันต์",
+    title: "Morning Light",
+    artist: "Dream Studio",
     type: "เพลง",
-    emoji: "⭐",
+    emoji: "☀️",
     color1: "#f7b733",
     color2: "#fc4a1a",
     duration: 180,
-    audio: "song.mp3"
+    cover: "assets/morning.jpg",
+    audio: "assets/morning.mp3"
   },
+
   {
     id: 2,
     title: "Midnight City",
     artist: "Neon Wave",
     type: "เพลง",
-    emoji: "🎵",
+    emoji: "🌃",
     color1: "#1d2b64",
-    color2: "#f8cdda",
+    color2: "#5c258d",
     duration: 210,
-    audio: "song.mp3"
+    cover: "assets/midnight.jpg",
+    audio: "assets/midnight.mp3"
+  },
+
+  {
+    id: 3,
+    title: "Ocean Breeze",
+    artist: "Blue Room",
+    type: "เพลง",
+    emoji: "🌊",
+    color1: "#00c6ff",
+    color2: "#0072ff",
+    duration: 190,
+    cover: "assets/ocean.jpg",
+    audio: "assets/ocean.mp3"
+  },
+
+  {
+    id: 4,
+    title: "Study Focus",
+    artist: "Lo-Fi Lab",
+    type: "เพลง",
+    emoji: "📚",
+    color1: "#4568dc",
+    color2: "#b06ab3",
+    duration: 200,
+    cover: "assets/study.jpg",
+    audio: "assets/study.mp3"
   }
+
 ];
-
-/* PLAYER STATE */
-let currentTrack = music[0];
-let isPlaying = false;
-let audioPlayer = new Audio(currentTrack.audio);
-let favorites = [];
-
-/* FUNCTIONS */
-function playTrack(track) {
-  currentTrack = track;
-  audioPlayer.src = track.audio;
-  audioPlayer.play().then(() => {
-    isPlaying = true;
-    updateUI();
-  }).catch(err => console.log("Playback error:", err));
-}
-
-function togglePlay() {
-  if (isPlaying) {
-    audioPlayer.pause();
-    isPlaying = false;
-  } else {
-    audioPlayer.play().then(() => {
-      isPlaying = true;
-    }).catch(err => console.log("Playback error:", err));
-  }
-  updateUI();
-}
-
-function updateUI() {
-  const playBtn = document.querySelector("#playBtn");
-  if (playBtn) playBtn.textContent = isPlaying ? "⏸️" : "▶️";
-}
