@@ -1,10 +1,12 @@
-{
-  "name": "Dream Music",
-  "short_name": "Dream Music",
-  "start_url": "./index.html",
-  "display": "standalone",
-  "background_color": "#0d0f10",
-  "theme_color": "#1ed760",
-  "description": "เว็บแอปเพลงและพอดแคสต์สำหรับโครงงานนักเรียน",
-  "orientation": "portrait"
-}
+"icons": [
+  {
+    "src": "./android-chrome-192x192.png",
+    "sizes": "192x192",
+    "type": "image/png"
+  },
+  {
+    "src": "./android-chrome-512x512.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }
+]
