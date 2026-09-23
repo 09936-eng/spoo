@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#121212">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" href="./android-chrome-192x192.png">
+<link rel="apple-touch-icon" href="./android-chrome-192x192.png">
+<title>Dream Music</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, "Noto Sans Thai", sans-serif;
+    background: #0b0b0b;
+    color: white;
+    min-height: 100vh;
+}
+
+/* HEADER */
+header {
+    height: 65px;
+    background: #050505;
+    display: flex;
+    align-items: center;
+    padding: 0 25px;
+    border-bottom: 1px solid #292929;
+}
+
+.logo {
+    color: #1ed760;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* MAIN */
+main {
+    min-height: calc(100vh - 155px);
+    padding: 30px;
+    padding-bottom: 130px;
+    background: linear-gradient(#242424, #101010);
+}
+
+/* HERO */
+.hero {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    border-radius: 18px;
+    padding: 35px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hero h1 {
+    font-size: 38px;
+    margin: 10px 0;
+}
+
+.hero p {
+    color: #eeeeee;
+}
+
+.music-icon {
+    font-size: 90px;
+}
+
+/* SONG GRID */
+h2 {
+    margin-bottom: 20px;
+}
+
+.song-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+}
+
+.song-card {
+    background: #181818;
+    padding: 15px;
+    border-radius: 14px;
+    transition: 0.2s;
+    cursor: pointer;
+    position: relative;
+}
+
+.song-card:hover {
+    background: #292929;
+    transform: translateY(-4px);
+}
+
+.song-card.active {
+    outline: 2px solid #1ed760;
+}
+
+.cover {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #333, #111);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 65px;
+    margin-bottom: 12px;
+}
+
+.song-card h3 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.song-card p {
+    color: #aaa;
+    margin-top: 6px;
+    font-size: 14px;
+}
+
+.card-play {
+    position: absolute;
+    right: 20px;
+    bottom: 45px;
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 50%;
+    background: #1ed760;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+/* PLAYER */
+.player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 90px;
+    background: #050505;
+    border-top: 1px solid #292929;
+    display: grid;
+    grid-template-columns: 30% 45% 25%;
+    align-items: center;
+    padding: 12px 20px;
+    z-index: 100;
+}
+
+.now-playing {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.mini-cover {
+    width: 52px;
+    height: 52px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #333, #111);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+}
+
+.song-info {
+    min-width: 0;
+}
+
+.song-info b,
+.song-info span {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.song-info span {
+    color: #aaa;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+/* CONTROLS */
+.controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.control-btn {
+    border: none;
+    background: none;
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+    opacity: 0.8;
+}
+
+.control-btn:hover {
+    opacity: 1;
+}
+
+.control-btn.active {
+    color: #1ed760;
+}
+
+.play-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: none;
+    background: white;
+    color: black;
+    cursor: pointer;
+    font-size: 17px;
+}
+
+/* PROGRESS */
+.progress-area {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #aaa;
+    font-size: 11px;
+}
+
+.progress {
+    height: 5px;
+    background: #555;
+    border-radius: 10px;
+    flex: 1;
+    cursor: pointer;
+}
+
+.progress-fill {
+    width: 0%;
+    height: 100%;
+    background: #1ed760;
+    border-radius: 10px;
+}
+
+/* VOLUME */
+.volume {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+}
+
+.volume input {
+    width: 110px;
+    accent-color: #1ed760;
+}
+
+/* MOBILE */
+@media (max-width: 750px) {
+
+    header {
+        height: 58px;
+        padding: 0 16px;
+    }
+
+    main {
+        padding: 18px;
+        padding-bottom: 160px;
+    }
+
+    .hero {
+        padding: 22px;
+    }
+
+    .hero h1 {
+        font-size: 27px;
+    }
+
+    .music-icon {
+        font-size: 55px;
+    }
+
+    .song-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .player {
+        height: 125px;
+        display: block;
+        padding: 10px 12px;
+    }
+
+    .now-playing {
+        height: 45px;
+    }
+
+    .mini-cover {
+        width: 38px;
+        height: 38px;
+        font-size: 18px;
+    }
+
+    .controls {
+        margin-top: 5px;
+    }
+
+    .volume {
+        display: none;
+    }
+
+    .progress-area {
+        margin-top: 4px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- AUDIO PLAYER -->
+<audio id="audio"></audio>
+
+<header>
+    <div class="logo">♪ Dream Music</div>
+</header>
+
+<main>
+
+    <section class="hero">
+        <div>
+            <small>DREAM MUSIC</small>
+            <h1>เพลงในแบบ<br>ของคุณ 🎧</h1>
+            <p>เลือกเพลงแล้วกดเล่นเพื่อเริ่มฟัง</p>
+        </div>
+
+        <div class="music-icon">♫</div>
+    </section>
+
+    <h2>🎵 เพลงของฉัน</h2>
+
+    <div class="song-grid" id="songGrid"></div>
+
+</main>
+
+<!-- MUSIC PLAYER -->
+<div class="player">
+
+    <div class="now-playing">
+
+        <div class="mini-cover">
+            🎵
+        </div>
+
+        <div class="song-info">
+            <b id="songTitle">ยังไม่ได้เลือกเพลง</b>
+            <span id="songArtist">Dream Music</span>
+        </div>
+
+    </div>
+
+    <div class="controls">
+
+        <div class="buttons">
+
+            <button
+                class="control-btn"
+                id="shuffleBtn"
+                title="สุ่มเพลง">
+                🔀
+            </button>
+
+            <button
+                class="control-btn"
+                id="prevBtn"
+                title="เพลงก่อนหน้า">
+                ⏮
+            </button>
+
+            <button
+                class="play-btn"
+                id="playBtn"
+                title="เล่น / หยุด">
+                ▶
+            </button>
+
+            <button
+                class="control-btn"
+                id="nextBtn"
+                title="เพลงถัดไป">
+                ⏭
+            </button>
+
+            <button
+                class="control-btn"
+                id="repeatBtn"
+                title="วนซ้ำ">
+                🔁
+            </button>
+
+        </div>
+
+        <div class="progress-area">
+
+            <span id="currentTime">0:00</span>
+
+            <div
+                class="progress"
+                id="progressBar">
+
+                <div
+                    class="progress-fill"
+                    id="progressFill">
+                </div>
+
+            </div>
+
+            <span id="duration">0:00</span>
+
+        </div>
+
+    </div>
+
+    <div class="volume">
+
+        🔊
+
+        <input
+            id="volumeControl"
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value="0.8">
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   รายการเพลง
+   =====================================================
+
+   สำคัญมาก:
+   ต้องอัปโหลดไฟล์ MP3 ไว้ในโฟลเดอร์เดียวกับ index.html
+
+   ชื่อไฟล์ต้องเป็น:
+
+   song-1.mp3
+   song-2.mp3
+===================================================== */
+
+const songs = [
+
+    {
+        title: "สิทธิ์ของเธอ",
+        artist: "อัสนี-วสันต์",
+        src: "./song-1.mp3",
+        cover: "1789915490539.jpg"
+    },
+
+    {
+        title: "เหงา คิดถึง รอ",
+        artist: "เสก โลโซ",
+        src: "./song-2.mp3",
+        cover: "./cover-2.jpg"
+    },
+
+    {
+        title: "คนที่ฆ่าฉัน",
+        artist: "HANGMAN",
+        src: "Y2Mate.is -  - SILLY FOOLSOFFICIAL MV.mp3",
+        cover: "./cover-3.jpg"
+    },
+
+    {
+        title: "คืนจันทร์",
+        artist: "เสก โลโซ",
+        src: "Y2Mate.is -  - LOSO OFFICIAL MV.mp3",
+        cover: "./cover-4.jpg"
+    }
+
+];
+
+/* =====================================================
+   ตัวแปรระบบ
+===================================================== */
+
+const audio = document.getElementById("audio");
+
+const songGrid =
+    document.getElementById("songGrid");
+
+const songTitle =
+    document.getElementById("songTitle");
+
+const songArtist =
+    document.getElementById("songArtist");
+
+const playBtn =
+    document.getElementById("playBtn");
+
+const prevBtn =
+    document.getElementById("prevBtn");
+
+const nextBtn =
+    document.getElementById("nextBtn");
+
+const shuffleBtn =
+    document.getElementById("shuffleBtn");
+
+const repeatBtn =
+    document.getElementById("repeatBtn");
+
+const currentTime =
+    document.getElementById("currentTime");
+
+const duration =
+    document.getElementById("duration");
+
+const progressBar =
+    document.getElementById("progressBar");
+
+const progressFill =
+    document.getElementById("progressFill");
+
+const volumeControl =
+    document.getElementById("volumeControl");
+
+
+let currentIndex = 0;
+
+let shuffleMode = false;
+
+let repeatMode = false;
+
+
+/* =====================================================
+   แปลงเวลา
+===================================================== */
+
+function formatTime(time) {
+
+    if (!Number.isFinite(time)) {
+        return "0:00";
+    }
+
+    const minutes =
+        Math.floor(time / 60);
+
+    const seconds =
+        Math.floor(time % 60)
+        .toString()
+        .padStart(2, "0");
+
+    return `${minutes}:${seconds}`;
+}
+
+
+/* =====================================================
+   แสดงเพลง
+===================================================== */
+
+function renderSongs() {
+
+    songGrid.innerHTML = "";
+
+    songs.forEach((song, index) => {
+
+        const card =
+            document.createElement("div");
+
+        card.className = "song-card";
+
+        if (index === currentIndex) {
+            card.classList.add("active");
+        }
+
+        card.innerHTML = `
+
+            <div class="cover">
+                🎵
+            </div>
+
+            <h3>
+                ${song.title}
+            </h3>
+
+            <p>
+                ${song.artist}
+            </p>
+
+            <button
+                class="card-play">
+                ▶
+            </button>
+
+        `;
+
+        card.addEventListener("click", () => {
+
+            loadSong(index);
+
+            playSong();
+
+        });
+
+        songGrid.appendChild(card);
+
+    });
+
+}
+
+
+/* =====================================================
+   โหลดเพลง
+===================================================== */
+
+function loadSong(index) {
+
+    currentIndex =
+        (index + songs.length)
+        % songs.length;
+
+    const song =
+        songs[currentIndex];
+
+    audio.pause();
+
+    audio.src =
+        song.src;
+
+    audio.load();
+
+    songTitle.textContent =
+        song.title;
+
+    songArtist.textContent =
+        song.artist;
+
+    currentTime.textContent =
+        "0:00";
+
+    duration.textContent =
+        "0:00";
+
+    progressFill.style.width =
+        "0%";
+
+    renderSongs();
+
+}
+
+
+/* =====================================================
+   เล่นเพลง
+===================================================== */
+
+function playSong() {
+
+    audio.play()
+        .then(() => {
+
+            playBtn.textContent =
+                "⏸";
+
+        })
+        .catch(() => {
+
+            alert(
+                "ไม่สามารถเล่นเพลงได้\n\n" +
+                "กรุณาตรวจสอบว่าไฟล์ song-1.mp3 และ song-2.mp3 อยู่ใน GitHub และชื่อไฟล์ตรงกับโค้ด"
+            );
+
+        });
+
+}
+
+
+/* =====================================================
+   หยุดเพลง
+===================================================== */
+
+function pauseSong() {
+
+    audio.pause();
+
+    playBtn.textContent =
+        "▶";
+
+}
+
+
+/* =====================================================
+   ปุ่ม Play
+===================================================== */
+
+playBtn.addEventListener("click", () => {
+
+    if (audio.paused) {
+
+        playSong();
+
+    } else {
+
+        pauseSong();
+
+    }
+
+});
+
+
+/* =====================================================
+   เพลงถัดไป
+===================================================== */
+
+function nextSong() {
+
+    if (shuffleMode && songs.length > 1) {
+
+        let randomIndex;
+
+        do {
+
+            randomIndex =
+                Math.floor(
+                    Math.random() *
+                    songs.length
+                );
+
+        } while (
+            randomIndex === currentIndex
+        );
+
+        loadSong(randomIndex);
+
+    } else {
+
+        loadSong(
+            currentIndex + 1
+        );
+
+    }
+
+    playSong();
+
+}
+
+
+/* =====================================================
+   เพลงก่อนหน้า
+===================================================== */
+
+function previousSong() {
+
+    if (audio.currentTime > 3) {
+
+        audio.currentTime = 0;
+
+        return;
+
+    }
+
+    loadSong(
+        currentIndex - 1
+    );
+
+    playSong();
+
+}
+
+
+/* =====================================================
+   ปุ่ม Next / Previous
+===================================================== */
+
+nextBtn.addEventListener(
+    "click",
+    nextSong
+);
+
+prevBtn.addEventListener(
+    "click",
+    previousSong
+);
+
+
+/* =====================================================
+   Shuffle
+===================================================== */
+
+shuffleBtn.addEventListener(
+    "click",
+    () => {
+
+        shuffleMode =
+            !shuffleMode;
+
+        shuffleBtn.classList.toggle(
+            "active",
+            shuffleMode
+        );
+
+    }
+);
+
+
+/* =====================================================
+   Repeat
+===================================================== */
+
+repeatBtn.addEventListener(
+    "click",
+    () => {
+
+        repeatMode =
+            !repeatMode;
+
+        repeatBtn.classList.toggle(
+            "active",
+            repeatMode
+        );
+
+    }
+);
+
+
+/* =====================================================
+   เมื่อเพลงกำลังเล่น
+===================================================== */
+
+audio.addEventListener(
+    "timeupdate",
+    () => {
+
+        currentTime.textContent =
+            formatTime(
+                audio.currentTime
+            );
+
+        duration.textContent =
+            formatTime(
+                audio.duration
+            );
+
+        if (audio.duration) {
+
+            const percent =
+                (audio.currentTime /
+                audio.duration) *
+                100;
+
+            progressFill.style.width =
+                percent + "%";
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   โหลดข้อมูลเพลงสำเร็จ
+===================================================== */
+
+audio.addEventListener(
+    "loadedmetadata",
+    () => {
+
+        duration.textContent =
+            formatTime(
+                audio.duration
+            );
+
+    }
+);
+
+
+/* =====================================================
+   เมื่อกดแถบเวลา
+===================================================== */
+
+progressBar.addEventListener(
+    "click",
+    (event) => {
+
+        if (!audio.duration) {
+            return;
+        }
+
+        const rect =
+            progressBar.getBoundingClientRect();
+
+        const percent =
+            (event.clientX -
+            rect.left) /
+            rect.width;
+
+        audio.currentTime =
+            percent *
+            audio.duration;
+
+    }
+);
+
+
+/* =====================================================
+   Volume
+===================================================== */
+
+volumeControl.addEventListener(
+    "input",
+    () => {
+
+        audio.volume =
+            volumeControl.value;
+
+    }
+);
+
+audio.volume = 0.8;
+
+
+/* =====================================================
+   เมื่อเพลงจบ
+===================================================== */
+
+audio.addEventListener(
+    "ended",
+    () => {
+
+        if (repeatMode) {
+
+            audio.currentTime = 0;
+
+            playSong();
+
+        } else {
+
+            nextSong();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   คีย์บอร์ด
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    (event) => {
+
+        if (
+            event.target.tagName ===
+            "INPUT"
+        ) {
+            return;
+        }
+
+        if (
+            event.code ===
+            "Space"
+        ) {
+
+            event.preventDefault();
+
+            if (audio.paused) {
+
+                playSong();
+
+            } else {
+
+                pauseSong();
+
+            }
+
+        }
+
+        if (
+            event.code ===
+            "ArrowRight"
+        ) {
+
+            if (audio.duration) {
+
+                audio.currentTime =
+                    Math.min(
+                        audio.duration,
+                        audio.currentTime + 5
+                    );
+
+            }
+
+        }
+
+        if (
+            event.code ===
+            "ArrowLeft"
+        ) {
+
+            audio.currentTime =
+                Math.max(
+                    0,
+                    audio.currentTime - 5
+                );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   เริ่มต้นระบบ
+===================================================== */
+
+renderSongs();
+
+loadSong(0);
+
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js');
+    });
+}
+</script>
+
+</body>
+</html>
